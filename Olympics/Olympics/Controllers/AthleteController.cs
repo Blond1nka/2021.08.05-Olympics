@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Olympics.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,16 @@ namespace Olympics.Controllers
     public class AthleteController : Controller
     {
         // GET: AthleteController
+        private AthleteDBService _athleteDB;
+
+        public AthleteController(AthleteDBService athleteDB)
+        {
+            _athleteDB = athleteDB;
+        }
+
         public ActionResult Index()
         {
-            return View();
+            return View(_athleteDB.AllAthletes());
         }
 
         // GET: AthleteController/Details/5
@@ -29,8 +37,7 @@ namespace Olympics.Controllers
 
         // POST: AthleteController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+               public ActionResult Create(IFormCollection collection)
         {
             try
             {
@@ -50,8 +57,7 @@ namespace Olympics.Controllers
 
         // POST: AthleteController/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+                public ActionResult Edit(int id, IFormCollection collection)
         {
             try
             {
@@ -71,8 +77,7 @@ namespace Olympics.Controllers
 
         // POST: AthleteController/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+               public ActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
