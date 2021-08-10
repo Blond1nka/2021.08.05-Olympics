@@ -1,0 +1,9 @@
+C:\Users\Šmara\Desktop\Po\2021.08.05 Olympics\Olympics\Olympics\obj\Debug\net5.0\Olympics.csproj.AssemblyReference.cache
+C:\Users\Šmara\Desktop\Po\2021.08.05 Olympics\Olympics\Olympics\obj\Debug\net5.0\Olympics.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Šmara\Desktop\Po\2021.08.05 Olympics\Olympics\Olympics\obj\Debug\net5.0\Olympics.AssemblyInfoInputs.cache
+C:\Users\Šmara\Desktop\Po\2021.08.05 Olympics\Olympics\Olympics\obj\Debug\net5.0\Olympics.AssemblyInfo.cs
+C:\Users\Šmara\Desktop\Po\2021.08.05 Olympics\Olympics\Olympics\obj\Debug\net5.0\Olympics.csproj.CoreCompileInputs.cache
+C:\Users\Šmara\Desktop\Po\2021.08.05 Olympics\Olympics\Olympics\obj\Debug\net5.0\Olympics.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Šmara\Desktop\Po\2021.08.05 Olympics\Olympics\Olympics\obj\Debug\net5.0\Olympics.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Šmara\Desktop\Po\2021.08.05 Olympics\Olympics\Olympics\obj\Debug\net5.0\Olympics.RazorAssemblyInfo.cache
+C:\Users\Šmara\Desktop\Po\2021.08.05 Olympics\Olympics\Olympics\obj\Debug\net5.0\Olympics.RazorAssemblyInfo.cs
