@@ -31,7 +31,7 @@ namespace Olympics.Services
                 {
                     Id = reader.GetInt32(0),
                     Name = reader.GetString(1),
-                    Surname = reader.GetString(2),
+                    SurName = reader.GetString(2),
                     CountryId = reader.GetInt32(3)
                 };
 
