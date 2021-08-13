@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Olympics.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,6 +21,21 @@ namespace Olympics.Controllers
 
         public IActionResult Index()
         {
+            string connectionString = "Server=.;Database=OndatoCacheDatabase;Integrated Security=SSPI;";
+            SqlConnection connection = new SqlConnection(connectionString);
+
+            connection.Open();
+
+            using var command = new SqlCommand("SELECT * FROM Olympics;", connection);
+            using var reader = command.ExecuteReader();
+            
+            while (reader.Read())
+            {
+                int id = reader.GetInt32(0);
+            }
+
+            connection.Close();
+
             return View();
         }
 
