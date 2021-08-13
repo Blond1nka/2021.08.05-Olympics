@@ -12,21 +12,21 @@ namespace Olympics.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private SqlConnection _connection;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(SqlConnection connection)
         {
-            _logger = logger;
+            _connection = connection;
         }
 
         public IActionResult Index()
         {
-            string connectionString = "Server=.;Database=OndatoCacheDatabase;Integrated Security=SSPI;";
+            string connectionString = "Server=.\\MSSQLSERVER01;Database=Olympics;Integrated Security=SSPI;";
             SqlConnection connection = new SqlConnection(connectionString);
 
             connection.Open();
 
-            using var command = new SqlCommand("SELECT * FROM Olympics;", connection);
+            using var command = new SqlCommand("SELECT * FROM Athletes;", connection);
             using var reader = command.ExecuteReader();
             
             while (reader.Read())

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Olympics.Models;
 using Olympics.Services;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,8 @@ namespace Olympics.Controllers
         // GET: AthleteController/Create
         public ActionResult Create()
         {
-            return View();
+            var participantsModel = new ParticipantsModel();
+            return View(participantsModel);
         }
 
         // POST: AthleteController/Create

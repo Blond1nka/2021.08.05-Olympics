@@ -31,7 +31,7 @@ namespace Olympics.Services
                 {
                     Id = reader.GetInt32(0),
                     Name = reader.GetString(1),
-                    SurName = reader.GetString(2),
+                    Surname = reader.GetString(2),
                     CountryId = reader.GetInt32(3)
                 };
 
@@ -42,5 +42,6 @@ namespace Olympics.Services
 
             return athletes;
         }
+
     }
 }
