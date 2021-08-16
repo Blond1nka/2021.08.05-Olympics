@@ -3,3 +3,31 @@
 *@
 @{
 }
+
+@model List<CountryModel>
+
+<div class="container">
+    <h1 class="mb-5">List of all athletes</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th>@item.Id</th>
+                    <td>@item.CountryName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div>
+        @Html.ActionLink("Add country", "NewCountry")
+    </div>
+</div>
