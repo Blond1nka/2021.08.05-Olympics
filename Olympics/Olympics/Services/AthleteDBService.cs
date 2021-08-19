@@ -16,32 +16,55 @@ namespace Olympics.Services
             _connection = connection;
         }
 
-        public List<AthleteModel> AllAthletes()
+        public AthleteModel GetAthletes()
         {
+            AthleteModel athlete = new();
+
             _connection.Open();
-
-            List<AthleteModel> athletes = new();
-
-            using var command = new SqlCommand("SELECT * FROM Athlete;", _connection);
-            using var reader = command.ExecuteReader();
-
+            var command = new SqlCommand("SELECT * FROM Athlete;", _connection);
+            var reader = command.ExecuteReader();
             while (reader.Read())
             {
-                AthleteModel athlete = new()
-                {
-                    Id = reader.GetInt32(0),
-                    Name = reader.GetString(1),
-                    Surname = reader.GetString(2),
-                    CountryId = reader.GetInt32(3)
-                };
-
-                athletes.Add(athlete);
+                athlete.Id = (int)reader.GetValue(0);
+                athlete.Name = (string)reader.GetValue(1);
+                athlete.Surname = (string)reader.GetValue(2);
+                athlete.CountryId = (int)reader.GetValue(3);
+                athlete.CountryName = (string)reader.GetValue(4);
+                athlete.Sports = new List<int>();
+                athlete.SportsNames = new List<string>();
             }
 
             _connection.Close();
 
-            return athletes;
+            athlete = AddSportsToAthlete(athlete);
+
+            return athlete;
         }
+
+        public void CreateAthlete(AthleteModel athleteModel)
+        {
+            _connection.Open();
+            using var command = new SqlCommand($"INSERT into dbo.Athletes (Name, Surname, CountryId) values ('{athleteModel.Name}', '{athleteModel.Surname}', '{athleteModel.CountryId}');", _connection);
+            command.ExecuteReader();
+
+            _connection.Close();
+        }
+
+        public AthleteModel AddSportsToAthlete(AthleteModel athlete)
+        {
+            _connection.Open();
+            var command = new SqlCommand("SELECT * FROM Sports;", _connection);
+            var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                athlete.Sports.Add((int)reader.GetValue(0));
+                athlete.SportsNames.Add((string)reader.GetValue(1));
+            }
+
+            return athlete;
+        }
+
+
 
     }
 }

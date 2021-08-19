@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Olympics.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -15,5 +16,28 @@ namespace Olympics.Services
         {
             _connection = connection;
         }
+
+        public List<CountryModel> GetAllCountries()
+        {
+            List<CountryModel> countries = new();
+
+            _connection.Open();
+            var command = new SqlCommand("SELECT [id], [CountryName], [UNDP] FROM [dbo].[Countries]", _connection);
+            var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                CountryModel country = new()
+                {
+                    Id = (int)reader.GetValue(0),
+                    CountryName = (string)reader.GetValue(1)
+                };
+
+                countries.Add(country);
+            }
+
+            _connection.Close();
+            return countries;
+        }
+
     }
 }

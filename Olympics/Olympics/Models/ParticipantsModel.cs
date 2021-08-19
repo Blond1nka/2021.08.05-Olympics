@@ -6,12 +6,26 @@ using System.Threading.Tasks;
 
 namespace Olympics.Models
 {
+
     public class ParticipantsModel
     {
-        public List<AthleteModel> Athletes { get; set; }
+        public ParticipantsModel()
+        {
+            OrderByList = new List<string>()
+            {
+                "Name", "Surname", "Country"
+            };
+        }
 
-        public List<CountryModel> Countries { get; set; }
+        public AthleteModel Athlete { get; set; }
+        public List<AthleteModel> AllAthletes { get; set; }
+        public CountryModel Country { get; set; }
+        public List<CountryModel> AllCountries { get; set; }
+        public SportModel Sport { get; set; }
+        public List<SportModel> AllSports { get; set; }
+        public string OrderBy { get; set; }
+        public List<string> OrderByList { get; set; }
 
-        public List<SportModel> Sports { get; set; }
     }
+
 }

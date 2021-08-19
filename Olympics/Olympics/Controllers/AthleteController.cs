@@ -11,84 +11,55 @@ namespace Olympics.Controllers
 {
     public class AthleteController : Controller
     {
-        // GET: AthleteController
-        private AthleteDBService _athleteDB;
+    
+        private AthleteDBService _athleteDBService;
 
-        public AthleteController(AthleteDBService athleteDB)
+        public AthleteController(AthleteDBService athleteDBService)
         {
-            _athleteDB = athleteDB;
+            _athleteDBService = athleteDBService;
         }
 
-        public ActionResult Index()
-        {
-            return View(_athleteDB.AllAthletes());
-        }
-
-        // GET: AthleteController/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Index()
         {
             return View();
         }
 
-        // GET: AthleteController/Create
-        public ActionResult Create()
+     
+        public IActionResult Create()
         {
             var participantsModel = new ParticipantsModel();
+
             return View(participantsModel);
         }
 
-        // POST: AthleteController/Create
         [HttpPost]
-               public ActionResult Create(IFormCollection collection)
+        public IActionResult Create(List<AthleteModel> athlete)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _athleteDBService.CreateAthlete(athlete[0]);
+
+            return RedirectToAction("Index");
         }
 
-        // GET: AthleteController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+        //public IActionResult Edit(int id)
+        //{
+        //    //ParticipantsModel model = _participantsService.GetModelForEdit(id);
 
-        // POST: AthleteController/Edit/5
-        [HttpPost]
-                public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //    return View(model);
+        //}
 
-        // GET: AthleteController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        //[HttpPost]
+        //public IActionResult Edit(List<AthleteModel> athletes)
+        //{
+        //    _athleteDBService.UpdateAthlete(athletes[0]);
 
-        // POST: AthleteController/Delete/5
-        [HttpPost]
-               public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //    return RedirectToAction("Index");
+        //}
+
+        //public IActionResult Delete(int id)
+        //{
+        //    _athleteDBService.DeleteAthlete(id);
+
+        //    return RedirectToAction("Index");
+        //}
     }
 }
