@@ -9,23 +9,10 @@ namespace Olympics.Models
 
     public class ParticipantsModel
     {
-        public ParticipantsModel()
-        {
-            OrderByList = new List<string>()
-            {
-                "Name", "Surname", "Country"
-            };
-        }
-
         public AthleteModel Athlete { get; set; }
-        public List<AthleteModel> AllAthletes { get; set; }
-        public CountryModel Country { get; set; }
-        public List<CountryModel> AllCountries { get; set; }
-        public SportModel Sport { get; set; }
-        public List<SportModel> AllSports { get; set; }
-        public string OrderBy { get; set; }
-        public List<string> OrderByList { get; set; }
-
+        public List<AthleteModel> Athletes { get; set; } = new List<AthleteModel>();
+        public List<CountryModel> Countries { get; set; } = new List<CountryModel>();
+        public List<SportModel> Sports { get; set; } = new List<SportModel>();  
     }
 
 }

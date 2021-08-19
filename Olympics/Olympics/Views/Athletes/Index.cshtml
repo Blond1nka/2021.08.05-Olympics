@@ -1,8 +1,30 @@
-﻿@model Olympics.Models.AthleteModel
+﻿@model ParticipantsModel
 
-@{ 
-    ViewData["Title"] = "Athletes";
-}
+<h3>Athletes</h3>
 
-<h2 class="d-inline-block mb-4">Athletes</h2>
-
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Country</th>
+            <th scope="col">Sports</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Athletes)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Surname</td>
+                <td>@item.CountryName</td>
+                <td>
+                    @foreach (var sports in item.Sports)
+                    {
+                        <ul>@sports</ul>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

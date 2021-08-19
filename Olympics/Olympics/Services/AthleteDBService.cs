@@ -10,58 +10,78 @@ namespace Olympics.Services
 {
     public class AthleteDBService
     {
-        private SqlConnection _connection;
-        public AthleteDBService(SqlConnection connection)
+        private readonly SqlConnection _connection;
+        private readonly CountryDBService _countryDBService;
+        private readonly SportDBService _sportDBService;
+
+        public AthleteDBService(CountryDBService countryDBService, SportDBService sportDBService, SqlConnection connection)
         {
             _connection = connection;
+            _countryDBService = countryDBService;
+            _sportDBService = sportDBService;
         }
 
-        public AthleteModel GetAthletes()
+        public List<AthleteModel> Read()
         {
-            AthleteModel athlete = new();
+            List<AthleteModel> items = new();
 
             _connection.Open();
-            var command = new SqlCommand("SELECT * FROM Athlete;", _connection);
-            var reader = command.ExecuteReader();
+
+            using var command = new SqlCommand("SELECT dbo.AthletesWithCountries.Id, dbo.AthletesWithCountries.Name , dbo.AthletesWithCountries.Surname, dbo.AthletesWithCountries.CountryName, dbo.Sports.SportName, dbo.Sports.TeamActivity " +
+                                                "FROM dbo.AthletesWithCountries " +
+                                               "LEFT OUTER JOIN dbo.AthleteSports " +
+                                                "ON dbo.AthletesWithCountries.Id = dbo.AthleteSports.AthleteId " +
+                                               "LEFT OUTER JOIN dbo.Sports " +
+                                                "ON dbo.AthleteSports.SportsId = dbo.Sports.Id;", _connection);
+
+            using var reader = command.ExecuteReader();
+
+
             while (reader.Read())
             {
-                athlete.Id = (int)reader.GetValue(0);
-                athlete.Name = (string)reader.GetValue(1);
-                athlete.Surname = (string)reader.GetValue(2);
-                athlete.CountryId = (int)reader.GetValue(3);
-                athlete.CountryName = (string)reader.GetValue(4);
-                athlete.Sports = new List<int>();
-                athlete.SportsNames = new List<string>();
+                items.Add(
+                    new AthleteModel
+                    {
+                        Id = reader.GetInt32(0),
+                        Name = reader.GetString(1),
+                        Surname = reader.GetString(2),
+                        CountryName = reader.GetString(3),
+                        SportsNames = reader.GetString(4),
+                        TeamActivity = reader.GetBoolean(5)
+                    });
+               
             }
 
             _connection.Close();
 
-            athlete = AddSportsToAthlete(athlete);
+            items = GetAthletes(items);
 
-            return athlete;
+            return items;
         }
 
         public void CreateAthlete(AthleteModel athleteModel)
         {
             _connection.Open();
             using var command = new SqlCommand($"INSERT into dbo.Athletes (Name, Surname, CountryId) values ('{athleteModel.Name}', '{athleteModel.Surname}', '{athleteModel.CountryId}');", _connection);
-            command.ExecuteReader();
+            command.ExecuteNonQuery();
 
             _connection.Close();
         }
 
-        public AthleteModel AddSportsToAthlete(AthleteModel athlete)
+        private List<AthleteModel> GetAthletes(List<AthleteModel> athletes)
         {
-            _connection.Open();
-            var command = new SqlCommand("SELECT * FROM Sports;", _connection);
-            var reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                athlete.Sports.Add((int)reader.GetValue(0));
-                athlete.SportsNames.Add((string)reader.GetValue(1));
-            }
+            Dictionary<int, AthleteModel> athletesDic = new Dictionary<int, AthleteModel>();
 
-            return athlete;
+            foreach (AthleteModel athlete in athletes)
+            {
+                if(!athletesDic.ContainsKey(athlete.Id))
+                {
+                    athletesDic.Add(athlete.Id, athlete);
+                }
+
+                athletes = athletesDic.Select(x => x.Value).ToList();
+            }
+            return athletes;
         }
 
 

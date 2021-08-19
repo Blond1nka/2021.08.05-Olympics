@@ -17,27 +17,38 @@ namespace Olympics.Services
             _connection = connection;
         }
 
-        public List<CountryModel> GetAllCountries()
+        public List<CountryModel> Read()
         {
-            List<CountryModel> countries = new();
+            List<CountryModel> items = new();
 
             _connection.Open();
-            var command = new SqlCommand("SELECT [id], [CountryName], [UNDP] FROM [dbo].[Countries]", _connection);
-            var reader = command.ExecuteReader();
+
+            using var command = new SqlCommand("SELECT Id, CountryName, ISO3 FROM dbo.Countries;", _connection);
+            using var reader = command.ExecuteReader();
             while (reader.Read())
             {
-                CountryModel country = new()
+                items.Add(
+                new CountryModel
                 {
-                    Id = (int)reader.GetValue(0),
-                    CountryName = (string)reader.GetValue(1)
-                };
-
-                countries.Add(country);
+                    Id = reader.GetInt32(0),
+                    Name = reader.GetString(1),
+                    ISO3 = reader.GetString(2),
+                });
             }
 
             _connection.Close();
-            return countries;
+
+            return items;
         }
 
+        public void Create(CountryModel model)
+        {
+            _connection.Open();
+
+            using var command = new SqlCommand($"INSERT into dbo.Countries (CountryName, ISO3) values ('{model.Name}', '{model.ISO3}');", _connection);
+            command.ExecuteNonQuery();
+
+            _connection.Close();
+        }
     }
 }

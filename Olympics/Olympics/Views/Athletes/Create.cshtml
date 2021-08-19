@@ -1,24 +1,20 @@
 ﻿@model ParticipantsModel
 
-@{
-    ViewData["Title"] = "Add new Athlete";
-}
+<h3>Create new athlete</h3>
 
-<h2>Add new athlete</h2>
-
-@using (Html.BeginForm("Create", "Athlete", FormMethod.Post))
+@using (Html.BeginForm("Submit", "Athlete", FormMethod.Post))
 {
-    <div class="form-group">
-        @Html.LabelFor(x => x.AllAthletes[0].Name)
-        @Html.TextBoxFor(x => x.AllAthletes[0].Name, new { @class = "form-control" })
+    <div class="container-full" style="background-color:aliceblue">
+        <div class="container">
+            @Html.LabelFor(x => x.Athlete.Name)
+            @Html.TextBoxFor(x => x.Athlete.Name)
+            @Html.LabelFor(x => x.Athlete.Surname)
+            @Html.TextBoxFor(x => x.Athlete.Surname)
+            @Html.DropDownListFor(x => x.Countries[0].Name, new SelectList(Model.Countries, "Name", "Name"))
+            @Html.DropDownListFor(x => x.Sports[0].SportName, new SelectList(Model.Sports, "Name", "Name"))
+            <input type="submit" value="Submit" />
+        </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(x => x.AllAthletes[0].Surname)
-        @Html.TextBoxFor(x => x.AllAthletes[0].Surname, new { @class = "form-control" })
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(x => x.AllAthletes[0].CountryId, "Select country")
-        @Html.DropDownListFor(x => x.AllAthletes[0].CountryId, new SelectList(Model.AllCountries, "Id", "Name"), "", new { @class = "form-control" })
-    </div>
-
 }
+
+@Html.ValidationSummary()

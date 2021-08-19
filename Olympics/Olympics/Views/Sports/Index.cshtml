@@ -1,20 +1,21 @@
-﻿@model List<CountryModel>
+﻿
+@model List<SportModel>
 
-<h3>Countries</h3>
+<h3>Sports</h3>
 
 <table class="table">
     <thead>
         <tr>
             <th scope="col">Name</th>
-            <th scope="col">ISO3</th>
+            <th scope="col">TeamActivity</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.Name</td>
-                <td>@item.ISO3</td>
+                <td>@item.SportName</td>
+                <td>@item.TeamActivity</td>
             </tr>
         }
     </tbody>

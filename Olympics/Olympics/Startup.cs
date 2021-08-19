@@ -25,9 +25,11 @@ namespace Olympics
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<SqlConnection>(_ => new SqlConnection(Configuration["ConnectionStrings:DefaultConnection"]));
-            services.AddControllersWithViews();
             services.AddScoped<AthleteDBService>();
+            services.AddScoped<SportDBService>();
+            services.AddScoped<CountryDBService>();
+            services.AddTransient<SqlConnection>(_ => new SqlConnection(Configuration["ConnectionStrings:Default"]));
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -376,3 +376,5 @@ C:\Users\Šmara\Desktop\Po\2021.08.05 Olympics\Olympics\Olympics\obj\Debug\net5.
 C:\Users\Šmara\Desktop\Po\2021.08.05 Olympics\Olympics\Olympics\obj\Debug\net5.0\Olympics.csproj.AssemblyReference.cache
 C:\Users\Šmara\Desktop\Po\2021.08.05 Olympics\Olympics\Olympics\obj\Debug\net5.0\Razor\Views\Countries\Create.cshtml.g.cs
 C:\Users\Šmara\Desktop\Po\2021.08.05 Olympics\Olympics\Olympics\obj\Debug\net5.0\Razor\Views\Countries\Index.cshtml.g.cs
+C:\Users\Šmara\Desktop\Po\2021.08.05 Olympics\Olympics\Olympics\obj\Debug\net5.0\Razor\Views\Sports\Create.cshtml.g.cs
+C:\Users\Šmara\Desktop\Po\2021.08.05 Olympics\Olympics\Olympics\obj\Debug\net5.0\Razor\Views\Sports\Index.cshtml.g.cs

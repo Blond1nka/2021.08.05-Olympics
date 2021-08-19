@@ -11,5 +11,6 @@ namespace Olympics.Models
         public int Id { get; set; }
         public string SportName { get; set; }
         public bool TeamActivity { get; set; }
+        public List<string> TeamActivityProperties { get; set; } = new List<string>() { "Team", "Non-team" };
     }
 }

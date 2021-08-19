@@ -12,24 +12,28 @@ namespace Olympics.Controllers
     public class AthleteController : Controller
     {
     
-        private AthleteDBService _athleteDBService;
+        private readonly AthleteDBService _athleteDBService;
+        private readonly ParticipantsService _participantsService;
 
-        public AthleteController(AthleteDBService athleteDBService)
+
+        public AthleteController(AthleteDBService athleteDBService, ParticipantsService viewsParticipantsService)
         {
             _athleteDBService = athleteDBService;
+            _participantsService = viewsParticipantsService;
+
         }
 
         public IActionResult Index()
         {
-            return View();
+            ParticipantsModel data = _participantsService.GetParticipantsDBData();
+            return View(data);
         }
 
      
         public IActionResult Create()
         {
-            var participantsModel = new ParticipantsModel();
-
-            return View(participantsModel);
+            ParticipantsModel data = _participantsService.GetParticipantsDBData();
+            return View(data);
         }
 
         [HttpPost]
@@ -40,26 +44,6 @@ namespace Olympics.Controllers
             return RedirectToAction("Index");
         }
 
-        //public IActionResult Edit(int id)
-        //{
-        //    //ParticipantsModel model = _participantsService.GetModelForEdit(id);
-
-        //    return View(model);
-        //}
-
-        //[HttpPost]
-        //public IActionResult Edit(List<AthleteModel> athletes)
-        //{
-        //    _athleteDBService.UpdateAthlete(athletes[0]);
-
-        //    return RedirectToAction("Index");
-        //}
-
-        //public IActionResult Delete(int id)
-        //{
-        //    _athleteDBService.DeleteAthlete(id);
-
-        //    return RedirectToAction("Index");
-        //}
+        
     }
 }
